@@ -11,13 +11,11 @@ import (
 	g "github.com/AllenDang/giu"
 )
 
-//go:embed images/gubby.png
-var gubbyBytes []byte
-
 var (
 	// define variables
 	affection int32 = 0
-	open      bool  = false
+	//go:embed images/gubby.png
+	gubbyBytes []byte
 
 	// define rgba image
 	rgba *image.RGBA
@@ -33,10 +31,6 @@ func loop() {
 			}).Size(300, 300),
 		),
 		g.Label(disp),
-		g.Button("Toys").Size(100, 50).OnClick(func() {
-			open = true
-			fmt.Printf("%v\n", open)
-		}),
 	)
 }
 
@@ -46,5 +40,6 @@ func main() {
 	rgba = g.ImageToRgba(img)
 
 	wnd := g.NewMasterWindow("My Friend Gubby", 500, 500, g.MasterWindowFlagsNotResizable)
-	wnd.Run(loop)
+	go wnd.Run(loop)
+
 }
